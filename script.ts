@@ -22,7 +22,6 @@ let lista: Array<Object> = [
 ];
 
 // a) Crie uma função que retorne a bio do id passado
-
 function getBio(id: number): string {
     let bio: string = "";
     lista.forEach((item: any) => {
@@ -36,6 +35,7 @@ function getBio(id: number): string {
     return bio;
 }
 
+//b) Crie uma função que retorne o name do id passado
 function getName(id:number): string {
     let name: string = "";
     lista.forEach((item: any) => {
@@ -49,4 +49,15 @@ function getName(id:number): string {
     return name;
 }
 
-console.log(getBio(0));
+// c) Crie uma função que apague um item da lista a partir de um id passado
+function deleteItem(id: number): void {
+    const size:number = lista.length;
+    lista.forEach((item: any) => {
+        if (item.id === id) {
+            lista.splice(lista.indexOf(item), 1);
+        }
+    })
+    if (size === lista.length) {
+        console.log("Não existe um usuário com este id");
+    }
+}
