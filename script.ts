@@ -30,6 +30,23 @@ function getBio(id: number): string {
             bio = item.bio;
         }
     })
+    if (bio === "") {
+        return "Não existe um usuário com este id";
+    }
     return bio;
 }
-console.log(getBio(2));
+
+function getName(id:number): string {
+    let name: string = "";
+    lista.forEach((item: any) => {
+        if (item.id === id) {
+            name = item.name;
+        }
+    })
+    if (name === "") {
+        return "Não existe um usuário com este id";
+    }
+    return name;
+}
+
+console.log(getBio(0));
