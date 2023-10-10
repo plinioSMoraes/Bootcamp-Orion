@@ -1,4 +1,10 @@
-let lista: Array<Object> = [
+interface IUser {
+    id: number;
+    name: string;
+    bio: string;
+}
+
+let lista: IUser[] = [
     {
         "id": 1, 
         "name": "Ada Lovelace", 
