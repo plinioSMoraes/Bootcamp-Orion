@@ -20,8 +20,8 @@ const countVowels = (wordsToCount: string): IVowelsMap => {
 };
 
 
-const totalVowelsInString = (string: string): IResults => {
-    const map: IVowelsMap = countVowels(string);
+const totalVowelsInString = (wordsToCount: string): IResults => {
+    const map: IVowelsMap = countVowels(wordsToCount);
     const usage: string[] = [
         'eat',
         'drink',
@@ -30,7 +30,7 @@ const totalVowelsInString = (string: string): IResults => {
     ];
 
     const funcData: IResults = {
-        word: string,
+        word: wordsToCount,
         vowelsCount: map,
         usage: ''
     };
