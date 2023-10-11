@@ -1,6 +1,4 @@
-interface IVowelsMap {
-    [key: string]: number
-}
+import IVowelsMap from "./IVowelsMap";
 
 interface IResults {
     word: string,
@@ -9,5 +7,5 @@ interface IResults {
 }
 
 
-export { IResults, IVowelsMap }
+export default IResults
 

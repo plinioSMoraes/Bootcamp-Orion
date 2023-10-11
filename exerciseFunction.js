@@ -1,9 +1,9 @@
-var countVowels = function (string) {
+var countVowels = function (wordsToCount) {
     var _a, _b;
-    if (string === undefined) {
-        return -1;
+    if (wordsToCount === undefined) {
+        return {};
     }
-    var vowels = (_b = (_a = string.match(/[aeiouáéíóúãẽĩõũAEIOUÁÉÍÓÚÃẼĨÕŨ]/g)) === null || _a === void 0 ? void 0 : _a.join('')) !== null && _b !== void 0 ? _b : '';
+    var vowels = (_b = (_a = wordsToCount.match(/[aeiouáéíóúãẽĩõũAEIOUÁÉÍÓÚÃẼĨÕŨ]/g)) === null || _a === void 0 ? void 0 : _a.join('')) !== null && _b !== void 0 ? _b : '';
     var splitedArr = vowels.split('').filter(function (char) { return char !== ' '; });
     var vowelsCount = {};
     splitedArr.forEach(function (char) {
@@ -22,7 +22,7 @@ var totalVowelsInString = function (string) {
         'eat',
         'drink',
         'use',
-        0,
+        '0',
     ];
     var funcData = {
         word: string,
@@ -30,7 +30,7 @@ var totalVowelsInString = function (string) {
         usage: ''
     };
     var rand = Math.floor(Math.random() * usage.length);
-    if (rand === 3 || usage[rand] === 0) {
+    if (rand === 3 || usage[rand] === '0') {
         funcData['usage'] = 'Nothing to do with it';
     }
     else {
@@ -39,22 +39,22 @@ var totalVowelsInString = function (string) {
     return funcData;
 };
 var buttonHandler = function () {
-    var _a;
+    var _a, _b;
     var button = document.querySelector('button');
     var input = document.querySelector('input');
-    var value = (input !== null && input !== void 0 ? input : "").value;
+    var value = (_a = input === null || input === void 0 ? void 0 : input.value) !== null && _a !== void 0 ? _a : "";
     if (value === '') {
         alert('Please enter a word');
         return;
     }
-    var result = totalVowelsInString((_a = input === null || input === void 0 ? void 0 : input.value) !== null && _a !== void 0 ? _a : '');
+    var result = totalVowelsInString((_b = input === null || input === void 0 ? void 0 : input.value) !== null && _b !== void 0 ? _b : '');
     button === null || button === void 0 ? void 0 : button.addEventListener('click', function (event) {
         event.preventDefault();
     });
     if (input !== null) {
         input.value = '';
     }
-    var card = document.getElementById('cardContainer');
+    var card = document.querySelector('#cardContainer');
     var resultDiv = document.querySelector('.result-off');
     if (resultDiv !== null) {
         resultDiv.className = 'result-on';
@@ -68,7 +68,8 @@ var buttonHandler = function () {
     }).join(""), "\n        </div>\n    ");
     var containerDiv = document.querySelector('.container');
     if (containerDiv !== null) {
-        if (containerDiv.childNodes.length === 7) {
+        var cardAlreadyExists = 7;
+        if (containerDiv.childNodes.length === cardAlreadyExists) {
             if (card !== null) {
                 card.innerHTML = cardContent;
                 containerDiv.appendChild(card);

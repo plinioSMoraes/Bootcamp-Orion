@@ -1,4 +1,5 @@
-import { IResults, IVowelsMap } from "./interfaces";
+import IResults from "./interfaces/IResults";
+import IVowelsMap from "./interfaces/IVowelsMap";
 
 const countVowels = (wordsToCount: string): IVowelsMap => {
     if (wordsToCount === undefined) {
