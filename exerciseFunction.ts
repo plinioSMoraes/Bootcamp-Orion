@@ -1,10 +1,12 @@
-var countVowels = function (string: string) {
-    if (string === undefined) {
-        return -1;
+const countVowels = (wordsToCount: string): {
+    [key: string]: number
+} => {
+    if (wordsToCount === undefined) {
+        return {};
     }
-    const vowels: string = string.match(/[aeiouáéíóúãẽĩõũAEIOUÁÉÍÓÚÃẼĨÕŨ]/g)?.join('') ?? '';
-    var splitedArr: string[] = vowels.split('').filter(function (char) { return char !== ' '; });
-    var vowelsCount = {};
+    const vowels: string = wordsToCount.match(/[aeiouáéíóúãẽĩõũAEIOUÁÉÍÓÚÃẼĨÕŨ]/g)?.join('') ?? '';
+    const splitedArr: string[] = vowels.split('').filter(function (char) { return char !== ' '; });
+    const vowelsCount: {[key: string]: number} = {};
     splitedArr.forEach(function (char: string) {
         if (vowelsCount[char] === undefined) {
             vowelsCount[char] = 1;
@@ -36,7 +38,7 @@ const totalVowelsInString = (string: string): {
         usage: ''
     };
 
-    const rand = Math.floor(Math.random() * usage.length);
+    const rand: number = Math.floor(Math.random() * usage.length);
     
     if (rand === 3 || usage[rand] === 0) {
         funcData['usage'] = 'Nothing to do with it';
@@ -47,9 +49,9 @@ const totalVowelsInString = (string: string): {
 }
 
 const buttonHandler = () => {
-    const button = document.querySelector('button');
+    const button: HTMLButtonElement | null = document.querySelector('button');
     const input: HTMLInputElement | null = document.querySelector('input');
-    let { value }: any = input ?? "";
+    let value: string = input?.value ?? "";
     
     if (value === '') {
         alert('Please enter a word');
@@ -65,8 +67,8 @@ const buttonHandler = () => {
         input.value = '';
     }
 
-    const card = document.getElementById('cardContainer');
-    const resultDiv = document.querySelector('.result-off');
+    const card: HTMLDivElement | null = document.querySelector('#cardContainer');
+    const resultDiv: HTMLDivElement | null = document.querySelector('.result-off');
     if (resultDiv !== null) {
         resultDiv.className = 'result-on';
     }
@@ -75,7 +77,7 @@ const buttonHandler = () => {
     }
 
     const { word, vowelsCount, usage } = result;
-    const cardContent = `
+    const cardContent: string= `
         <h3>${word}</h3>
         <p>${usage}</p>
         <p>Vowels</p>
@@ -89,9 +91,10 @@ const buttonHandler = () => {
         </div>
     `;
 
-    const containerDiv = document.querySelector('.container');
+    const containerDiv: HTMLDialogElement | null = document.querySelector('.container');
     if (containerDiv !== null) {
-        if (containerDiv.childNodes.length === 7) {
+        const cardAlreadyExists = 7;
+        if (containerDiv.childNodes.length === cardAlreadyExists) {
             if (card !== null) {
                 card.innerHTML = cardContent;
                 containerDiv.appendChild(card);
