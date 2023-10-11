@@ -1,12 +1,12 @@
-const countVowels = (wordsToCount: string): {
-    [key: string]: number
-} => {
+import { IResults, IVowelsMap } from "./interfaces";
+
+const countVowels = (wordsToCount: string): IVowelsMap => {
     if (wordsToCount === undefined) {
         return {};
     }
     const vowels: string = wordsToCount.match(/[aeiouáéíóúãẽĩõũAEIOUÁÉÍÓÚÃẼĨÕŨ]/g)?.join('') ?? '';
     const splitedArr: string[] = vowels.split('').filter(function (char) { return char !== ' '; });
-    const vowelsCount: {[key: string]: number} = {};
+    const vowelsCount: IVowelsMap = {};
     splitedArr.forEach(function (char: string) {
         if (vowelsCount[char] === undefined) {
             vowelsCount[char] = 1;
@@ -19,20 +19,16 @@ const countVowels = (wordsToCount: string): {
 };
 
 
-const totalVowelsInString = (string: string): {
-    word: string,
-    vowelsCount: { [key: string]: number},
-    usage: string
-} => {
-    const map: { [key: string]: number} = countVowels(string);
-    const usage: (string | 0)[] = [
+const totalVowelsInString = (string: string): IResults => {
+    const map: IVowelsMap = countVowels(string);
+    const usage: string[] = [
         'eat',
         'drink',
         'use',
-        0,
+        '0',
     ];
 
-    const funcData = {
+    const funcData: IResults = {
         word: string,
         vowelsCount: map,
         usage: ''
@@ -40,7 +36,7 @@ const totalVowelsInString = (string: string): {
 
     const rand: number = Math.floor(Math.random() * usage.length);
     
-    if (rand === 3 || usage[rand] === 0) {
+    if (rand === 3 || usage[rand] === '0') {
         funcData['usage'] = 'Nothing to do with it';
     } else {
         funcData['usage'] = `You can ${usage[rand]} it`; 
