@@ -1,16 +1,28 @@
-const totalVogalsInString = (string: string): {
+var countVowels = function (string: string) {
+    if (string === undefined) {
+        return -1;
+    }
+    const vowels: string = string.match(/[aeiouáéíóúãẽĩõũAEIOUÁÉÍÓÚÃẼĨÕŨ]/g)?.join('') ?? '';
+    var splitedArr: string[] = vowels.split('').filter(function (char) { return char !== ' '; });
+    var vowelsCount = {};
+    splitedArr.forEach(function (char: string) {
+        if (vowelsCount[char] === undefined) {
+            vowelsCount[char] = 1;
+        }
+        else {
+            vowelsCount[char] += 1;
+        }
+    });
+    return vowelsCount;
+};
+
+
+const totalVowelsInString = (string: string): {
     word: string,
-    vocalsCount: { [key: string]: number},
+    vowelsCount: { [key: string]: number},
     usage: string
 } => {
-    const map: { [key: string]: number} = {
-        a: 0,
-        e: 0,
-        i: 0,
-        o: 0,
-        u: 0
-    };
-
+    const map: { [key: string]: number} = countVowels(string);
     const usage: (string | 0)[] = [
         'eat',
         'drink',
@@ -18,17 +30,9 @@ const totalVogalsInString = (string: string): {
         0,
     ];
 
-    const stringArray: string[] = string.split('');
-
-    stringArray.forEach((char) => {
-        if (map[char] !== undefined) {
-            map[char] += 1;
-        }
-    });
-
     const funcData = {
         word: string,
-        vocalsCount: map,
+        vowelsCount: map,
         usage: ''
     };
 
@@ -52,7 +56,7 @@ const buttonHandler = () => {
         return;
     }
     
-    const result = totalVogalsInString(input?.value ?? '');
+    const result = totalVowelsInString(input?.value ?? '');
     button?.addEventListener('click', (event) => {
         event.preventDefault();
     });
@@ -70,38 +74,18 @@ const buttonHandler = () => {
         card.className = 'card';
     }
 
-    const { word, vocalsCount, usage } = result;
-
+    const { word, vowelsCount, usage } = result;
     const cardContent = `
         <h3>${word}</h3>
         <p>${usage}</p>
-        <p>Vocals</p>
-        <div id="vocalsCard">
-            <div id="vocalCard">
-                A
-                <hr>
-                <div>${vocalsCount.a}</div>
-            </div>
-            <div id="vocalCard">
-                E
-                <hr>
-                <div>${vocalsCount.e}</div>
-            </div>
-            <div id="vocalCard">
-                I
-                <hr>
-                <div>${vocalsCount.i}</div>
-            </div>
-            <div id="vocalCard">
-                O
-                <hr>
-                <div>${vocalsCount.o}</div>
-            </div>
-            <div id="vocalCard">
-                U
-                <hr>
-                <div>${vocalsCount.u}</div>
-            </div>
+        <p>Vowels</p>
+        <div id="vowelsCard">
+            ${Object.keys(vowelsCount).map((key) => {
+                return `<div id="vowelCard">
+                    ${key}
+                    <div>${vowelsCount[key]}</div>
+                </div>`
+            }).join("")}
         </div>
     `;
 
@@ -121,5 +105,3 @@ const buttonHandler = () => {
         }
     }
 }
-
-// Adding pr to the developer branch

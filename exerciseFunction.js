@@ -1,26 +1,32 @@
-var totalVogalsInString = function (string) {
-    var map = {
-        a: 0,
-        e: 0,
-        i: 0,
-        o: 0,
-        u: 0
-    };
+var countVowels = function (string) {
+    var _a, _b;
+    if (string === undefined) {
+        return -1;
+    }
+    var vowels = (_b = (_a = string.match(/[aeiouáéíóúãẽĩõũAEIOUÁÉÍÓÚÃẼĨÕŨ]/g)) === null || _a === void 0 ? void 0 : _a.join('')) !== null && _b !== void 0 ? _b : '';
+    var splitedArr = vowels.split('').filter(function (char) { return char !== ' '; });
+    var vowelsCount = {};
+    splitedArr.forEach(function (char) {
+        if (vowelsCount[char] === undefined) {
+            vowelsCount[char] = 1;
+        }
+        else {
+            vowelsCount[char] += 1;
+        }
+    });
+    return vowelsCount;
+};
+var totalVowelsInString = function (string) {
+    var map = countVowels(string);
     var usage = [
         'eat',
         'drink',
         'use',
         0,
     ];
-    var stringArray = string.split('');
-    stringArray.forEach(function (char) {
-        if (map[char] !== undefined) {
-            map[char] += 1;
-        }
-    });
     var funcData = {
         word: string,
-        vocalsCount: map,
+        vowelsCount: map,
         usage: ''
     };
     var rand = Math.floor(Math.random() * usage.length);
@@ -41,7 +47,7 @@ var buttonHandler = function () {
         alert('Please enter a word');
         return;
     }
-    var result = totalVogalsInString((_a = input === null || input === void 0 ? void 0 : input.value) !== null && _a !== void 0 ? _a : '');
+    var result = totalVowelsInString((_a = input === null || input === void 0 ? void 0 : input.value) !== null && _a !== void 0 ? _a : '');
     button === null || button === void 0 ? void 0 : button.addEventListener('click', function (event) {
         event.preventDefault();
     });
@@ -56,8 +62,10 @@ var buttonHandler = function () {
     if (card !== null) {
         card.className = 'card';
     }
-    var word = result.word, vocalsCount = result.vocalsCount, usage = result.usage;
-    var cardContent = "\n        <h3>".concat(word, "</h3>\n        <p>").concat(usage, "</p>\n        <p>Vocals</p>\n        <div id=\"vocalsCard\">\n            <div id=\"vocalCard\">\n                A\n                <hr>\n                <div>").concat(vocalsCount.a, "</div>\n            </div>\n            <div id=\"vocalCard\">\n                E\n                <hr>\n                <div>").concat(vocalsCount.e, "</div>\n            </div>\n            <div id=\"vocalCard\">\n                I\n                <hr>\n                <div>").concat(vocalsCount.i, "</div>\n            </div>\n            <div id=\"vocalCard\">\n                O\n                <hr>\n                <div>").concat(vocalsCount.o, "</div>\n            </div>\n            <div id=\"vocalCard\">\n                U\n                <hr>\n                <div>").concat(vocalsCount.u, "</div>\n            </div>\n        </div>\n    ");
+    var word = result.word, vowelsCount = result.vowelsCount, usage = result.usage;
+    var cardContent = "\n        <h3>".concat(word, "</h3>\n        <p>").concat(usage, "</p>\n        <p>Vowels</p>\n        <div id=\"vowelsCard\">\n            ").concat(Object.keys(vowelsCount).map(function (key) {
+        return "<div id=\"vowelCard\">\n                    ".concat(key, "\n                    <div>").concat(vowelsCount[key], "</div>\n                </div>");
+    }).join(""), "\n        </div>\n    ");
     var containerDiv = document.querySelector('.container');
     if (containerDiv !== null) {
         if (containerDiv.childNodes.length === 7) {
@@ -75,4 +83,3 @@ var buttonHandler = function () {
         }
     }
 };
-// Adding pr to the developer branch
