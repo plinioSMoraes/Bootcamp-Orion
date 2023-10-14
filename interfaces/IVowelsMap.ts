@@ -1,5 +1,4 @@
-interface IVowelsMap {
+export interface IVowelsMap {
     [key: string]: number
 }
 
-export default IVowelsMap;
